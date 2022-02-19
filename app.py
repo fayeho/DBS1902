@@ -24,20 +24,21 @@ def index():
     if request.method == "POST":
         rates = request.form.get("rates")
         print(rates)
+        
         model = joblib.load("DBS Reg")
         pred = model.predict([[float(rates)]])
-        print(pred)
         s1 = "Predicted DBS Share price based on Linear Regression is : " + str(pred)
-        model = joblib.load("DBS Reg")
-        pred = model.predict([[float(rates)]])
-        print(pred)
-        s2 = "Predicted DBS Share price based on Linear Regression is : " + str(pred)
+        
         model = joblib.load("DBSDT")
         pred = model.predict([[float(rates)]])
         print(pred)
-        s3 = "Predicted DBS Share price based on Linear Regression is : " + str(pred)
+        s2 = "Predicted DBS Share price based on Decision Tree is : " + str(pred)
+        
         model = joblib.load("MLPRegressor")
         pred = model.predict([[float(rates)]])
+        print(pred)
+        s3 = "Predicted DBS Share price based on Neural Network Model is : " + str(pred)
+        
         return(render_template("index.html",results1=s1,results2=s2,results3=s3))
     else:
         return(render_template("index.html",results1="Predicted Price 1",results2="Predicted Price 2",results3="Predicted Price 3"))
